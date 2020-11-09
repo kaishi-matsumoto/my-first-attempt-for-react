@@ -1,7 +1,7 @@
- import React, {Component} from 'react';
+import React from 'react';
  
 
-class App extends Component {
+/* class App extends Component {
   render(){
     return(
       <React.Fragment>
@@ -10,6 +10,22 @@ class App extends Component {
       </React.Fragment>
     ) 
   }
+} */
+
+const App=()=>{
+  return(
+    <div>
+      <Cat />
+      <Cat /> 
+      <Cat />
+      <Cat />
+    </div>
+    
+  )
+}
+
+const Cat=()=>{
+  return <div>Me!</div>
 }
 
 export default App;
