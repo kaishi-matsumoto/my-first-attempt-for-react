@@ -22,8 +22,8 @@ class Home extends React.Component{
   render(){
     return(
       <Theme>
-        <Title>Escape from イノシシ</Title>
-        <p>お前ら、なんjすぎ。</p> 
+        <Title>FAVER</Title>
+        <p>好きなコンテンツを共有しましょう。</p> 
       </Theme>
     );
   }

@@ -6,7 +6,7 @@ class About extends React.Component{
         return(
             <Theme>
                 <Title>About</Title>
-                <Message>あかん系(ガチ勢)をSPAで実装した。</Message>
+                <Message>このアプリでは、音楽でも映画でもなんでも好きなコンテンツを共有できます。</Message>
             </Theme>
         )
     }
