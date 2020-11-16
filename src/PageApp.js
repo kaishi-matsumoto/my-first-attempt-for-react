@@ -7,7 +7,10 @@ import {
     Switch
   } from "react-router-dom";
 
-const page_data_list = [
+
+
+/*API実装前*/ 
+/* const page_data_list = [
         {
             id: 1,
             title: "id1の記事"
@@ -16,11 +19,29 @@ const page_data_list = [
             id: 2,
             title: "id2の記事"
         }
-    ]
+    ] */
 
 
 
+
+/*API実装前*/
 const PageApp =()=>{
+    construtor(props){
+        super(props)
+        this.state={
+            pages: []
+        }
+    }
+    componentDidMount(){
+        axios.get('http://localhost:3001/pages')
+        .then((results)=>{
+            console.log(results)
+            this.setState({pages: results.data})
+        })
+        .catch(()=>{
+            console.log(data)
+        })
+    }
         return(
             <Router>
                 <Theme>
@@ -37,6 +58,9 @@ const PageApp =()=>{
 
 
 
+
+
+/*API実装前(page_data_list)*/
 class PageList extends React.Component{
     render(){
         const pageList = page_data_list.map(e => (
@@ -54,6 +78,8 @@ class PageList extends React.Component{
     }
 }
 
+
+/*API実装前(page_data_list) */
 class PageInfo extends React.Component{
     render(){
         const {params} = this.props.match
@@ -68,6 +94,8 @@ class PageInfo extends React.Component{
         )
     }
 }
+
+
 
 const Black = styled.ul`
     list-style: none;
