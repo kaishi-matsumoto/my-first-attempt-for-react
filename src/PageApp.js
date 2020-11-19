@@ -26,7 +26,6 @@ import axios from "axios"
 
 
 
-/*API実装後*/
 class PageApp extends React.Component{
     constructor(props){
         super(props)
@@ -65,7 +64,6 @@ class PageApp extends React.Component{
 
 
 
-/*API実装前(page_data_list)*/
 class PageList extends React.Component{
     constructor(props){
         super(props)
@@ -100,7 +98,7 @@ class PageList extends React.Component{
 }
 
 
-/*API実装前(page_data_list) */
+
 class PageInfo extends React.Component{
     constructor(props){
         super(props)
@@ -121,11 +119,10 @@ class PageInfo extends React.Component{
     render(){
         const {params} = this.props.match
         const id = parseInt(params.id, 10)
-        /* const page = this.state.pages.filter(e => e.id === id)[0] */
-        const article = this.state.pages.title
+        const title = this.state.pages.filter(e => e.id === id).map((article) => article.title)
         return(
             <div>
-                <Small>{id}:{article}</Small>
+                <Small>{id}:{title}</Small>
                 <div><PageList /></div>
             </div>
             
