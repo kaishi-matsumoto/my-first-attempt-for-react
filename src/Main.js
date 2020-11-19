@@ -18,7 +18,6 @@ const Main = () =>{
                     <li className="bar_item"><Link className="bar_link" to="/">Home</Link></li>
                     <li className="bar_item"><Link className="bar_link" to="/about">About</Link></li>
                     <li className="bar_item"><Link className="bar_link" to="/page">Page</Link></li>
-                    {/* <li className="bar_item"><Link className="bar_link" to="/contact">Contact</Link></li> */}
                 </ul>
                 <Route exact path={'/'} component={Home} />
                 <Route path={'/about'} component={About} />

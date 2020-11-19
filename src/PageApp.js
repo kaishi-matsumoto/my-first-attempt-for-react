@@ -7,42 +7,9 @@ import {
     Switch
   } from "react-router-dom";
 import axios from "axios"
-/* import { render } from 'react-dom'; */
-
-
-
-/*API実装前*/ 
-/* const page_data_list = [
-        {
-            id: 1,
-            title: "id1の記事"
-        },
-        {
-            id: 2,
-            title: "id2の記事"
-        }
-    ] */
-
-
 
 
 class PageApp extends React.Component{
-    constructor(props){
-        super(props)
-        this.state={
-            pages: []
-        }
-    }
-    componentDidMount() {
-        axios.get('http://localhost:3001/pages')
-        .then((results) => {
-          console.log(results)
-          this.setState({pages: results.data})
-        })
-        .catch((data) =>{
-          console.log(data)
-        })
-      }
     render(){
         return( 
             <Router>
@@ -59,9 +26,6 @@ class PageApp extends React.Component{
         )
     }
 }
-
-
-
 
 
 class PageList extends React.Component{
