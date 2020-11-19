@@ -6,6 +6,8 @@ import {
     Link,
     Switch
   } from "react-router-dom";
+import axios from "axios"
+/* import { render } from 'react-dom'; */
 
 
 
@@ -24,25 +26,26 @@ import {
 
 
 
-/*API実装前*/
-const PageApp =()=>{
-    construtor(props){
+/*API実装後*/
+class PageApp extends React.Component{
+    constructor(props){
         super(props)
         this.state={
             pages: []
         }
     }
-    componentDidMount(){
+    componentDidMount() {
         axios.get('http://localhost:3001/pages')
-        .then((results)=>{
-            console.log(results)
-            this.setState({pages: results.data})
+        .then((results) => {
+          console.log(results)
+          this.setState({pages: results.data})
         })
-        .catch(()=>{
-            console.log(data)
+        .catch((data) =>{
+          console.log(data)
         })
-    }
-        return(
+      }
+    render(){
+        return( 
             <Router>
                 <Theme>
                     <Title>Page</Title>
@@ -53,7 +56,9 @@ const PageApp =()=>{
                     </Switch>
                 </Theme>
             </Router>
+            
         )
+    }
 }
 
 
@@ -62,8 +67,24 @@ const PageApp =()=>{
 
 /*API実装前(page_data_list)*/
 class PageList extends React.Component{
+    constructor(props){
+        super(props)
+        this.state={
+            pages: []
+        }
+    }
+    componentDidMount() {
+        axios.get('http://localhost:3001/pages')
+        .then((results) => {
+          console.log(results)
+          this.setState({pages: results.data})
+        })
+        .catch((data) =>{
+          console.log(data)
+        })
+      }
     render(){
-        const pageList = page_data_list.map(e => (
+        const pageList = this.state.pages.map(e => (
             <li key={e.id}>
                 <Link to={'/page/' + e.id}>id:{e.id}</Link>
             </li>
@@ -81,13 +102,30 @@ class PageList extends React.Component{
 
 /*API実装前(page_data_list) */
 class PageInfo extends React.Component{
+    constructor(props){
+        super(props)
+        this.state={
+            pages: []
+        }
+    }
+    componentDidMount() {
+        axios.get('http://localhost:3001/pages')
+        .then((results) => {
+          console.log(results)
+          this.setState({pages: results.data})
+        })
+        .catch((data) =>{
+          console.log(data)
+        })
+      }
     render(){
         const {params} = this.props.match
         const id = parseInt(params.id, 10)
-        const page = page_data_list.filter(e => e.id === id)[0]
+        /* const page = this.state.pages.filter(e => e.id === id)[0] */
+        const article = this.state.pages.title
         return(
             <div>
-                <div>{id}:{page.title}</div>
+                <Small>{id}:{article}</Small>
                 <div><PageList /></div>
             </div>
             
@@ -99,6 +137,10 @@ class PageInfo extends React.Component{
 
 const Black = styled.ul`
     list-style: none;
+`;
+
+const Small = styled.div`
+    color: #000000;
 `;
 
 const Theme = styled.div`
