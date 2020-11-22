@@ -16,10 +16,12 @@ class PageApp extends React.Component{
                 <Theme>
                     <Title>Page</Title>
                     <Message>記事を表示します。</Message>
-                    <Switch>
-                        <Route path='/page/:id' component={PageInfo} />
-                        <Route component={PageList} />
-                    </Switch>
+                    <Main>
+                        <Switch>
+                            <Route path='/page/:id' component={PageInfo} />
+                            <Route component={PageList} />
+                        </Switch>
+                    </Main>
                 </Theme>
             </Router>
             
@@ -47,19 +49,24 @@ class PageList extends React.Component{
       }
     render(){
         const pageList = this.state.pages.map(e => (
-            <li key={e.id}>
+            <SmallBlack className="number" key={e.id}>
                 <Link to={'/page/' + e.id}>id:{e.id}</Link>
-            </li>
+            </SmallBlack>
         ))
         return(
-            <div>
+            <React.Fragment>
                 <Black>
                     {pageList}
                 </Black>
-            </div>
+            </React.Fragment>
         )
     }
 }
+
+const SmallBlack = styled.li`
+    text-decoration: none;
+    flex: center;
+`;
 
 
 
@@ -85,27 +92,47 @@ class PageInfo extends React.Component{
         const id = parseInt(params.id, 10)
         const title = this.state.pages.filter(e => e.id === id).map((article) => article.title)
         return(
-            <div>
-                <Small>{id}:{title}</Small>
-                <div><PageList /></div>
-            </div>
+            <React.Fragment>
+                <Parent>   
+                    <Small className="bar_list">{id}:{title}</Small>
+                    <Small className="bar_list"><PageList /></Small>
+                </Parent>
+            </React.Fragment>
             
         )
     }
 }
 
+const Main = styled.p`
+    
+`;
 
+const Parent = styled.ul`
+    flex: center;
+    
+    align-items: center;
+    margin-right: 70px;
+    text-decoration: none;
+`;
 
 const Black = styled.ul`
     list-style: none;
+    
 `;
 
-const Small = styled.div`
+const Small = styled.li`
     color: #000000;
+    flex: center;
+    list-style: none;
+    .bar_list{
+        text-decoration: none;
+    }
+    
 `;
 
 const Theme = styled.div`
     text-align: center;	
+    text-decoration: none;
 `
 
 const Title = styled.h1`
@@ -115,7 +142,6 @@ const Title = styled.h1`
 const Message = styled.p`
 
 `
-
 
 
 
