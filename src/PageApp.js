@@ -10,31 +10,10 @@ import axios from "axios"
 
 
 class PageApp extends React.Component{
-    render(){
-        return( 
-            <Router>
-                <Theme>
-                    <Title>Page</Title>
-                    <Message>記事を表示します。</Message>
-                    <Main>
-                        <Switch>
-                            <Route path='/page/:id' component={PageInfo} />
-                            <Route component={PageList} />
-                        </Switch>
-                    </Main>
-                </Theme>
-            </Router>
-            
-        )
-    }
-}
-
-
-class PageList extends React.Component{
-    constructor(props){
-        super(props)
+    constructor(){
+        super()
         this.state={
-            pages: []
+            pages: undefined
         }
     }
     componentDidMount() {
@@ -48,7 +27,37 @@ class PageList extends React.Component{
         })
       }
     render(){
-        const pageList = this.state.pages.map(e => (
+        const { pages } = this.state
+        
+        if(!pages){
+            return (<p>loading</p>)
+        }
+        return( 
+            <Router>
+                <Theme>
+                    <Title>Page</Title>
+                    <Message>記事を表示します。</Message>
+                    <Main>
+                        <Switch>
+                            <Route path='/page/:id' render={routeProps => <PageInfo{...routeProps} pages={pages}/>} />;
+                        </Switch>
+                        <PageList pages={pages} />
+                    </Main>
+                </Theme>
+            </Router>
+            
+        )
+    }
+}
+
+
+class PageList extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    render(){
+        const { pages } = this.props
+        const pageList = pages.map(e => (
             <SmallBlack className="number" key={e.id}>
                 <Link to={'/page/' + e.id}>id:{e.id}</Link>
             </SmallBlack>
@@ -73,29 +82,18 @@ const SmallBlack = styled.li`
 class PageInfo extends React.Component{
     constructor(props){
         super(props)
-        this.state={
-            pages: []
-        }
     }
-    componentDidMount() {
-        axios.get('http://localhost:3001/pages')
-        .then((results) => {
-          console.log(results)
-          this.setState({pages: results.data})
-        })
-        .catch((data) =>{
-          console.log(data)
-        })
-      }
+    
     render(){
-        const {params} = this.props.match
+        const {match, pages} = this.props
+        const {params} = match
         const id = parseInt(params.id, 10)
-        const title = this.state.pages.filter(e => e.id === id).map((article) => article.title)
+        const title = pages.filter(e => e.id === id).map((article) => article.title) 
         return(
             <React.Fragment>
                 <Parent>   
                     <Small className="bar_list">{id}:{title}</Small>
-                    <Small className="bar_list"><PageList /></Small>
+
                 </Parent>
             </React.Fragment>
             
