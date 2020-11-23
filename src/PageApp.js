@@ -32,6 +32,11 @@ class PageApp extends React.Component{
         if(!pages){
             return (<p>loading</p>)
         }
+        const pageList = pages.map(e => (
+            <SmallBlack className="number" key={e.id}>
+                <Link to={'/page/' + e.id}>id:{e.id}</Link>
+            </SmallBlack>
+        ))
         return( 
             <Router>
                 <Theme>
@@ -41,33 +46,13 @@ class PageApp extends React.Component{
                         <Switch>
                             <Route path='/page/:id' render={routeProps => <PageInfo{...routeProps} pages={pages}/>} />;
                         </Switch>
-                        <PageList pages={pages} />
+                        <Black>
+                            {pageList}
+                        </Black>  
                     </Main>
                 </Theme>
             </Router>
             
-        )
-    }
-}
-
-
-class PageList extends React.Component{
-    constructor(props){
-        super(props)
-    }
-    render(){
-        const { pages } = this.props
-        const pageList = pages.map(e => (
-            <SmallBlack className="number" key={e.id}>
-                <Link to={'/page/' + e.id}>id:{e.id}</Link>
-            </SmallBlack>
-        ))
-        return(
-            <React.Fragment>
-                <Black>
-                    {pageList}
-                </Black>
-            </React.Fragment>
         )
     }
 }
