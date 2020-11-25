@@ -35,16 +35,7 @@ const PageApp = () =>{
                 <Message>記事を表示します。</Message>
                 <Main>
                     <Switch>
-                        <Route path='/page/:id' 
-                        render={({match})=>
-                        <React.Fragment>
-                            <Parent>   
-                                <Small className="bar_list">
-                                    {match.params.id}:{page.filter(e => e.id === match.params.id).map((article) => article.title)}
-                                </Small>
-                            </Parent>
-                        </React.Fragment>} 
-                        />;
+                        <Route path='/page/:id' render={routeProps => <PageInfo{...routeProps} pages={page}/>} />;
                     </Switch>
                     <Black>
                         {page && page.map(e => (
@@ -60,6 +51,28 @@ const PageApp = () =>{
 
     );
 };
+
+class PageInfo extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    
+    render(){
+        const {match, pages} = this.props
+        const {params} = match
+        const id = parseInt(params.id, 10)
+        const title = pages.filter(e => e.id === id).map((article) => article.title) 
+        return(
+            <React.Fragment>
+                <Parent>   
+                    <Small className="bar_list">{id}:{title}</Small>
+
+                </Parent>
+            </React.Fragment>
+            
+        )
+    }
+}
 
 
 const SmallBlack = styled.li`
