@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import styled from 'styled-components';
 import {
     BrowserRouter as Router,
@@ -9,83 +9,65 @@ import {
 import axios from "axios"
 
 
-class PageApp extends React.Component{
-    constructor(){
-        super()
-        this.state={
-            pages: undefined
-        }
+
+const PageApp = () =>{
+    const [page, setPage] = useState()
+    
+    useEffect(()=>{
+        const fetchData = async () => {
+            const result = await axios(
+                'http://localhost:3001/pages'
+            );
+            setPage(result.data);
+        };
+        fetchData();
+    },[]);
+    
+    if(!page){
+        return (<p>loading</p>)
     }
-    componentDidMount() {
-        axios.get('http://localhost:3001/pages')
-        .then((results) => {
-          console.log(results)
-          this.setState({pages: results.data})
-        })
-        .catch((data) =>{
-          console.log(data)
-        })
-      }
-    render(){
-        const { pages } = this.state
-        
-        if(!pages){
-            return (<p>loading</p>)
-        }
-        const pageList = pages.map(e => (
-            <SmallBlack className="number" key={e.id}>
-                <Link to={'/page/' + e.id}>id:{e.id}</Link>
-            </SmallBlack>
-        ))
-        return( 
-            <Router>
-                <Theme>
-                    <Title>Page</Title>
-                    <Message>記事を表示します。</Message>
-                    <Main>
-                        <Switch>
-                            <Route path='/page/:id' render={routeProps => <PageInfo{...routeProps} pages={pages}/>} />;
-                        </Switch>
-                        <Black>
-                            {pageList}
-                        </Black>  
-                    </Main>
-                </Theme>
-            </Router>
-            
-        )
-    }
-}
+
+    
+    return(
+        <Router>
+            <Theme>
+                <Title>Page</Title>
+                <Message>記事を表示します。</Message>
+                <Main>
+                    <Switch>
+                        <Route path='/page/:id' 
+                        render={({match})=>
+                        <React.Fragment>
+                            <Parent>   
+                                <Small className="bar_list">
+                                    {match.params.id}:{page.filter(e => e.id === match.params.id).map((article) => article.title)}
+                                </Small>
+                            </Parent>
+                        </React.Fragment>} 
+                        />;
+                    </Switch>
+                    <Black>
+                        {page && page.map(e => (
+                            <SmallBlack className="number" key={e.id}>
+                                <Link to={'/page/' + e.id}>id:{e.id}</Link>
+                            </SmallBlack>
+                        ))}
+                    </Black>  
+                </Main>
+            </Theme>
+        </Router>
+    
+
+    );
+};
+
 
 const SmallBlack = styled.li`
     text-decoration: none;
     flex: center;
 `;
 
-
-
-class PageInfo extends React.Component{
-    constructor(props){
-        super(props)
-    }
-    
-    render(){
-        const {match, pages} = this.props
-        const {params} = match
-        const id = parseInt(params.id, 10)
-        const title = pages.filter(e => e.id === id).map((article) => article.title) 
-        return(
-            <React.Fragment>
-                <Parent>   
-                    <Small className="bar_list">{id}:{title}</Small>
-
-                </Parent>
-            </React.Fragment>
-            
-        )
-    }
-}
-
+ 
 const Main = styled.p`
     
 `;
