@@ -11,8 +11,10 @@ import {
 import Home from './components/Home';
 import About from './components/About';
 import PageApp from './PageApp';
+import Login from './Login';
 import { MobileIcons } from './components/NavbarElements';
 import { FaBars } from 'react-icons/fa';
+
 
 const Main = () =>{
     return(
@@ -25,11 +27,13 @@ const Main = () =>{
                     <NavLogo className="bar_item"><NavLinks className="bar_link" to="/">Home</NavLinks></NavLogo>
                     <NavLogo className="bar_item"><NavLinks className="bar_link" to="/about">About</NavLinks></NavLogo>
                     <NavLogo className="bar_item"><NavLinks className="bar_link" to="/page">Page</NavLinks></NavLogo>
+                    <NavLogo className="bar_item"><NavLinks className="bar_link" to="/login">Login</NavLinks></NavLogo>
                 </NavBarContainer>
                 
                 <Route exact path={'/'} component={Home} />
                 <Route path={'/about'} component={About} />
                 <Route path={'/page'} component={PageApp} />
+                <Route path={'/login'} component={Login} />
             </Bar1>        
         </Router>
     ) 

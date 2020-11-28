@@ -12,7 +12,6 @@ import axios from "axios"
 
 const PageApp = () =>{
     const [page, setPage] = useState()
-    
     useEffect(()=>{
         const fetchData = async () => {
             const result = await axios(
@@ -59,9 +58,9 @@ const PageInfo=(props)=>{
     const title = pages.filter(e => e.id === id).map((article) => article.title) 
     return(
         <React.Fragment>
-                <Parent>   
-                    <Small className="bar_list">{id}:{title}</Small>
-                </Parent>
+            <Parent>   
+                <Small className="bar_list">{id}:{title}</Small>
+            </Parent>
         </React.Fragment>
     );
 }
