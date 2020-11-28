@@ -1,64 +1,45 @@
-import React, { useState } from 'react';
-/* import { FaDivide } from 'react-icons/fa'; */
-/* import styled from 'styled-components'; */
+
+import { useState } from 'react';
 
 
-const Login = ()=>{
+const correctEmail = "info@vikana.net"
+const correctPassword = "vikana1234"
 
-    const [form, setForm]=useState({email: '',password: ''})
-    const [message, setMessage]=useState({email: '',password: ''})
+const Login = () => {
 
-    const handleChange=(event)=>{
-        const name = event.target.name;
-        const value = event.target.value;
-        setForm({name,value});
-        setMessage({name: validator(name,value)})
-    } 
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [message, setMessage] = useState("")
+  const [loading, setLoading] = useState(false)
 
-    const validator=(name,value)=>{
-        switch(name){
-            case 'email':
-                return setTimeout(emailValidation(value),1000);
-            case 'password':
-                return setTimeout(passwordValidation(value),1000);
+  const handleChange = () => {
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+      if(email === correctEmail && password === correctPassword){
+        setMessage("ログイン成功！")
+        return
+      }
+  
+      setMessage("メールアドレスかパスワードが違います")
+    }, 1000);
 
-            default:
-        }
-    }
+  }
 
-    const emailValidation=(value)=>{
-        const correctEmail='info@vikana.net'
-        if(correctEmail !== value) return 'メアドかパスワードが間違ってます ';
-        else if(correctEmail === value) return 'ログインしました！';
-        
-    }
-
-    const passwordValidation=(value)=>{
-        const correctPassword='vikana1234'
-        if(correctPassword !== value) return 'メアドかパスワードが間違ってます';
-        else if(correctPassword === value) return 'ログインしました！'
-        
-    }
-
-    return(
-        <React.Fragment>
+  return(
+    <div>
+        <div>
             <div>
-                <form>
-                    <label>
-                        <p>{message.email}</p>
-                        <input type="text" name="email" value={form.email} onChange={handleChange}/>
-                    </label>
-                    <label>
-                        <p>{message.password}</p>
-                        <input type="password" name="password" value={form.password} onChange={handleChange}/>
-                    </label>
-                    <input type="submit" value="ログイン"
-                    disabled={!form.email || !form.password || message.email || message.password} />
-                </form>
+                <p>Email</p>
+                <input type="text" value={email} onChange={(e)=>{setEmail(e.target.value)}} />
+                <p>Password</p>
+                <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}  />
+                <input type="submit" value="ログイン" onClick={handleChange} />
+                {loading ? <p>Loading</p> : <p>{message}</p>}
             </div>
-        </React.Fragment>
-    );
+        </div>
+    </div>
+  );
 }
-
 
 export default Login;
