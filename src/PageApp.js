@@ -56,10 +56,11 @@ const PageInfo=(props)=>{
     const {params} = match
     const id = parseInt(params.id, 10)
     const title = pages.filter(e => e.id === id).map((article) => article.title) 
+    
     return(
         <React.Fragment>
             <Parent>   
-                <Small className="bar_list">{id}:{title}</Small>
+                <Small className="bar_list" >{id}:{title}</Small>
             </Parent>
         </React.Fragment>
     );

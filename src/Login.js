@@ -1,26 +1,34 @@
-
-import { useState } from 'react';
-
-
-const correctEmail = "info@vikana.net"
-const correctPassword = "vikana1234"
+import { useState, useEffect } from 'react';
+import axios from "axios"
 
 const Login = () => {
-
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [message, setMessage] = useState("")
   const [loading, setLoading] = useState(false)
 
+  const [login, setLogin] = useState()
+    useEffect(()=>{
+        const fetchData = async () => {
+            const result = await axios(
+                'http://localhost:3001/logins'
+            );
+            setLogin(result.data);
+        };
+        fetchData();
+    },[]);
+    
+
   const handleChange = () => {
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
-      if(email === correctEmail && password === correctPassword){
+      
+      if(email === login.map(e => e.email) && password === login.map(e => e.password)){
         setMessage("ログイン成功！")
         return
       }
-  
+      
       setMessage("メールアドレスかパスワードが違います")
     }, 1000);
 
@@ -41,5 +49,6 @@ const Login = () => {
     </div>
   );
 }
+
 
 export default Login;
