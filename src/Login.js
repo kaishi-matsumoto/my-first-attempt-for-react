@@ -7,31 +7,48 @@ const Login = () => {
   const [message, setMessage] = useState("")
   const [loading, setLoading] = useState(false)
 
-  const [login, setLogin] = useState()
+ /*  const [login, setLogin] = useState() */
     useEffect(()=>{
-        const fetchData = async () => {
-            const result = await axios(
-                'http://localhost:3001/logins'
-            );
-            setLogin(result.data);
-        };
-        fetchData();
+        
     },[]);
     
-
-  const handleChange = () => {
+    
+  const handleChange = (e) => {
+    
+    /*ここから */
+    e.preventDefault();
+    const method="POST";
+    const body = new FormData(document.getElementById('input'));
+    return fetch('url',{
+      method,
+      body
+    })
+    .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          inputText:''
+        });
+        console.log(responseJson);
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
+      /*ここまででフォームで入力したemailとpasswordをrailsに送りたいです。 */
+      /*ここから */
+    const fetchData = async () => {
+      const result = await axios(
+          'http://localhost:3001/logins'
+      );
+      setMessage(result.data);
+    };
+    fetchData();
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
-      
-      if(email === login.map(e => e.email) && password === login.map(e => e.password)){
-        setMessage("ログイン成功！")
-        return
-      }
-      
-      setMessage("メールアドレスかパスワードが違います")
+      setMessage();
     }, 1000);
-
+    /*ここまでで合否のメッセージを取得する処理をしたいです。 */
+    
   }
 
   return(
