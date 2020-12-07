@@ -16,23 +16,18 @@ const Login = () => {
   const handleChange = (e) => {
     
     /*ここから */
-    e.preventDefault();
-    const method="POST";
-    const body = new FormData(document.getElementById('input'));
-    return fetch('url',{
-      method,
-      body
-    })
-    .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          inputText:''
-        });
-        console.log(responseJson);
-      })
-      .catch((error) =>{
-        console.error(error);
-      });
+    fetch(url, {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data) // 本文のデータ型は "Content-Type" ヘッダーと一致する必要があります
+      }).then(response=>{
+        return response.json();
+      }).then(result=>{
+        console.log("---- api から帰ってきた json ----")
+        console.log(result)
+       })
       /*ここまででフォームで入力したemailとpasswordをrailsに送りたいです。 */
       /*ここから */
     const fetchData = async () => {
