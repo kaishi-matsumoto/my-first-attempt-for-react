@@ -19,9 +19,7 @@ const Login = () => {
     const data= document.querySelector('.fetchForm');
     const url = 'http://localhost:3001/api/v1/informations';
     let formData = new FormData(data);
-    for (let value of formData.entries()) {
-      console.log(value);
-    }
+    
     fetch(url, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {
@@ -29,6 +27,7 @@ const Login = () => {
       },
       body: JSON.stringify(formData) // 本文のデータ型は "Content-Type" ヘッダーと一致する必要があります
       }).then(response=>{
+        console.log(response)
         return response.json();
       }).then(result=>{
         console.log("---- api から帰ってきた json ----")
@@ -62,7 +61,7 @@ const Login = () => {
                 <input type="text" value={email} onChange={(e)=>{setEmail(e.target.value)}} />
                 <p>Password</p>
                 <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}  />
-                <input type="submit" value="ログイン" onClick={handleChange} />
+                <button onClick={handleChange}>ログイン</button>
                 {loading ? <p>Loading</p> : <p>{message}</p>}
               </form>
             </div>
