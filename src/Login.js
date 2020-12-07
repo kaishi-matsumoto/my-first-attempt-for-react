@@ -17,12 +17,16 @@ const Login = () => {
     
     /*ここから */
     const data= document.querySelector('.fetchForm');
+    let formData = new FormData(data);
+    for (let value of formData.entries()) {
+      console.log(value);
+    }
     fetch('http://localhost:3000/api/v1/informations', {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data) // 本文のデータ型は "Content-Type" ヘッダーと一致する必要があります
+      body: JSON.stringify(formData) // 本文のデータ型は "Content-Type" ヘッダーと一致する必要があります
       }).then(response=>{
         return response.json();
       }).then(result=>{
