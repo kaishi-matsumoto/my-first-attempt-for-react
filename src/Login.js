@@ -17,11 +17,12 @@ const Login = () => {
     
     /*ここから */
     const data= document.querySelector('.fetchForm');
+    const url = 'http://localhost:3001/api/v1/informations';
     let formData = new FormData(data);
     for (let value of formData.entries()) {
       console.log(value);
     }
-    fetch('http://localhost:3000/api/v1/informations', {
+    fetch(url, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {
         'Content-Type': 'application/json'
@@ -37,7 +38,7 @@ const Login = () => {
       /*ここから */
     const fetchData = async () => {
       const result = await axios(
-          'http://localhost:3000/api/v1/informations'
+          url
       );
       setMessage(result.data);
     };
@@ -46,7 +47,7 @@ const Login = () => {
     setTimeout(() => {
       setLoading(false)
       setMessage();
-      console.log('fetch data')
+      
     }, 1000);
     /*ここまでで合否のメッセージを取得する処理をしたいです。 */
     
