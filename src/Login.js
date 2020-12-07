@@ -16,7 +16,8 @@ const Login = () => {
   const handleChange = (e) => {
     
     /*ここから */
-    fetch(url, {
+    const data= document.querySelector('.fetchForm');
+    fetch('http://localhost:3000/api/v1/informations', {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {
         'Content-Type': 'application/json'
@@ -32,7 +33,7 @@ const Login = () => {
       /*ここから */
     const fetchData = async () => {
       const result = await axios(
-          'http://localhost:3001/logins'
+          'http://localhost:3000/api/v1/informations'
       );
       setMessage(result.data);
     };
@@ -41,6 +42,7 @@ const Login = () => {
     setTimeout(() => {
       setLoading(false)
       setMessage();
+      console.log('fetch data')
     }, 1000);
     /*ここまでで合否のメッセージを取得する処理をしたいです。 */
     
@@ -50,12 +52,14 @@ const Login = () => {
     <div>
         <div>
             <div>
+              <form className="fetchForm">
                 <p>Email</p>
                 <input type="text" value={email} onChange={(e)=>{setEmail(e.target.value)}} />
                 <p>Password</p>
                 <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}  />
                 <input type="submit" value="ログイン" onClick={handleChange} />
                 {loading ? <p>Loading</p> : <p>{message}</p>}
+              </form>
             </div>
         </div>
     </div>
