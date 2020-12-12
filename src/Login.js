@@ -15,7 +15,6 @@ const Login = () => {
     
   const handleChange = (e) => {
     
-    /*ここから */
     const data= document.querySelector('.fetchForm');
     const url = 'http://localhost:3001/api/v1/informations';
     let formData = new FormData(data);
@@ -35,9 +34,7 @@ const Login = () => {
         return setMessage(result)
 
        })
-      /*ここまででフォームで入力したemailとpasswordをrailsに送りたいです。 */
-
-      /*ここから */
+      
     /* const fetchData = async () => {
       const result = await axios(
           url
@@ -68,7 +65,7 @@ const Login = () => {
       setLoading(false)
       setMessage(); 
     }, 1000);
-    /*ここまでで合否のメッセージを取得する処理をしたいです。 */
+    
     
   }
 
