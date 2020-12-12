@@ -29,9 +29,11 @@ const Login = () => {
       }).then(response=>{
         console.log(response)
         return response.json();
-      }).then(result=>{
         
+      }).then(result=>{
         console.log(result)
+        return setMessage(result)
+
        })
       /*ここまででフォームで入力したemailとpasswordをrailsに送りたいです。 */
 
@@ -46,19 +48,19 @@ const Login = () => {
     fetchData();
     */
 
-   fetch(url, {
+/*    fetch(url, {
     method: 'GET', // *GET, POST, PUT, DELETE, etc.
     headers: {
       'Content-Type': 'application/json'
     },
-   
+    
     }).then(response=>{
       console.log(response)
-      return response.json();
+      return setMessage(response.json());
     }).then(result=>{
       console.log(result)
-      setMessage(result)
-     })
+      
+     }) */
 
     
     setLoading(true)
