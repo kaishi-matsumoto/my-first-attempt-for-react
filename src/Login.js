@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import axios from "axios"
+import { useState } from 'react';
+/* import axios from "axios" */
 
 const Login = () => {
   const [email, setEmail] = useState("")
@@ -7,10 +7,10 @@ const Login = () => {
   const [message, setMessage] = useState("")
   const [loading, setLoading] = useState(false)
 
- /*  const [login, setLogin] = useState() */
-    useEffect(()=>{
+ 
+    /* useEffect(()=>{
         
-    },[]);
+    },[]); */
     
     
   const handleChange = (e) => {
@@ -30,23 +30,41 @@ const Login = () => {
         console.log(response)
         return response.json();
       }).then(result=>{
-        console.log("---- api から帰ってきた json ----")
+        
         console.log(result)
        })
       /*ここまででフォームで入力したemailとpasswordをrailsに送りたいです。 */
+
       /*ここから */
-    const fetchData = async () => {
+    /* const fetchData = async () => {
       const result = await axios(
           url
       );
       setMessage(result.data);
-    };
+      console.log(result.data)
+    }; 
     fetchData();
+    */
+
+   fetch(url, {
+    method: 'GET', // *GET, POST, PUT, DELETE, etc.
+    headers: {
+      'Content-Type': 'application/json'
+    },
+   
+    }).then(response=>{
+      console.log(response)
+      return response.json();
+    }).then(result=>{
+      console.log(result)
+      setMessage(result)
+     })
+
+    
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
-      setMessage();
-      
+      setMessage(); 
     }, 1000);
     /*ここまでで合否のメッセージを取得する処理をしたいです。 */
     
